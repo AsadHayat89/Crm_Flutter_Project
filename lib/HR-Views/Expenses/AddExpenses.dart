@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:crm_project/HR-Views/Controller/HrController.dart';
 import 'package:crm_project/View/Employee/Controller/EmployeeController.dart';
 import 'package:crm_project/View/Property/Controller/PropertyController.dart';
@@ -7,6 +9,7 @@ import 'package:crm_project/widget/TextField.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../Constants/Colors.dart';
 class AddExpenses extends StatefulWidget {
@@ -215,7 +218,55 @@ class _ListYourPropertyScreenState extends State<AddExpenses> {
                       padding: EdgeInsets.only(top: 5, left: 20, right: 20),
                       child: Textfield(hint: "Money",contentPadding:22,Contorller: Controller.expenseMoney,),
                     ),
+                    Padding(
+                      padding:  EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 20),
+                            child: Container(
+                              //width: width,
+                                child: Text(
+                                  "Image",
+                                  style: GoogleFonts.plusJakartaSans(
+                                      fontSize: 14,
 
+                                      color: AppColors.AuthTextColor,
+                                      fontWeight: FontWeight.w500),
+                                )),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                onTap: (){
+                                  _showImagePickerDialog(context);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: AppColors.appBackground,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 8,horizontal: 8),
+                                    child: Text(
+                                      "Upload",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 5,),
+                              Text(
+                                Controller.UploadedImage.value.split('/').last,
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
                     SizedBox(height: 10,),
                     Padding(
                       padding: EdgeInsets.only(left: 20, right: 10, bottom: 10),
@@ -269,6 +320,59 @@ class _ListYourPropertyScreenState extends State<AddExpenses> {
           fit: BoxFit.cover,
         ),
       ),
+    );
+  }
+  Future<void> _showImagePickerDialog(BuildContext context) async {
+    final picker = ImagePicker();
+
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Select Image"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.photo_library),
+                title: Text("Pick from Gallery"),
+                onTap: () async {
+                  Navigator.of(context).pop();
+                  final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+                  if (pickedFile != null) {
+                    // Handle the selected image here
+                    Controller.UploadedImage.value=pickedFile.path;
+                    Controller.ImageData=File(pickedFile.path);
+                    print("Image path: ${pickedFile.path}");
+                  }
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.camera_alt),
+                title: Text("Take a Picture"),
+                onTap: () async {
+                  Navigator.of(context).pop();
+                  final pickedFile = await picker.pickImage(source: ImageSource.camera);
+                  if (pickedFile != null) {
+                    // Handle the captured image here
+                    Controller.UploadedImage.value=pickedFile.path;
+                    Controller.ImageData=File(pickedFile.path);
+                    print("Image path: ${pickedFile.path}");
+                  }
+                },
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

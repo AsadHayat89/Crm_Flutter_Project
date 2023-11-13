@@ -137,10 +137,11 @@ class _ListYourPropertyScreenState extends State<AddEmployee> {
                           // ],
                         ),
                         child: TextFormField(
-                          controller: Controller.EmployeeComission,
+                          controller: Controller.EmployeeCnic,
                           style: GoogleFonts.plusJakartaSans(color: Colors.black),
                           inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.digitsOnly
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(13),
                           ],
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
@@ -160,7 +161,7 @@ class _ListYourPropertyScreenState extends State<AddEmployee> {
                             fillColor: AppColors.textFieldFillColore,
                             filled: true,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            hintText: 'Cnic',
+                            hintText: '00000-000000-0',
                           ),
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -189,7 +190,7 @@ class _ListYourPropertyScreenState extends State<AddEmployee> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 5, left: 20, right: 20),
-                      child: Textfield(hint: "Email",contentPadding:22,Contorller: Controller.Employeeemail,),
+                      child: Textfield(hint: "example@gmail.com",contentPadding:22,Contorller: Controller.Employeeemail,),
                     ),
 
                     Padding(
@@ -253,6 +254,27 @@ class _ListYourPropertyScreenState extends State<AddEmployee> {
                     Padding(
                       padding: EdgeInsets.only(top: 5, left: 20, right: 20),
                       child: Textfield(hint: "Address",contentPadding:22,Contorller: Controller.EmployeeAddress,),
+                    ),
+
+                    Padding(
+                      padding: EdgeInsets.only(top: 20),
+                      child: Container(
+                          width: width,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 20),
+                            child: Text(
+                              "Employee Destination",
+                              style: GoogleFonts.plusJakartaSans(
+                                  fontSize: 14,
+
+                                  color: AppColors.AuthTextColor,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          )),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 5, left: 20, right: 20),
+                      child: Textfield(hint: "Destination",contentPadding:22,Contorller: Controller.desination,),
                     ),
                     // Padding(
                     //   padding: EdgeInsets.only(top: 20),

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class AdminHomePage extends StatefulWidget {
@@ -75,20 +76,22 @@ class _HomePageState extends State<AdminHomePage> {
                 chartRadius: MediaQuery.of(context).size.width / 2.2,
                 //colorList: colorList,
                 initialAngleInDegree: 0,
+
                 chartType: ChartType.ring,
-                ringStrokeWidth: 5,
+                ringStrokeWidth: 32,
+                centerText: "Earning Graph",
                 legendOptions: LegendOptions(
                   showLegendsInRow: false,
-                  //legendPosition: LegendPosition.right,
+                  legendPosition: LegendPosition.right,
                   showLegends: true,
                   //legendShape: _BoxShape.circle,
-                  legendTextStyle: GoogleFonts.poppins(
+                  legendTextStyle: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 chartValuesOptions: ChartValuesOptions(
                   showChartValueBackground: true,
-                  showChartValues: false,
+                  showChartValues: true,
                   showChartValuesInPercentage: false,
                   showChartValuesOutside: false,
                   decimalPlaces: 1,
@@ -108,7 +111,7 @@ class _HomePageState extends State<AdminHomePage> {
                     //   Controller.getListProperty("asadhayat2007@gmail.com");
                   },
                   child: Text(
-                    "Deals",
+                    "Expenses",
                     style: GoogleFonts.plusJakartaSans(
                       fontWeight: FontWeight.w700,
                       fontSize: 22.0,
@@ -125,7 +128,7 @@ class _HomePageState extends State<AdminHomePage> {
                       width: width,
                       height: 220,
                       child: ListView.builder(
-                          itemCount: Controller.DealList.length,
+                          itemCount: Controller.ExpensesList.length,
                           padding: EdgeInsets.zero,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
@@ -133,11 +136,11 @@ class _HomePageState extends State<AdminHomePage> {
                                   left: 16, right: 16, bottom: 10),
                               child: GestureDetector(
                                 onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => dealDetailOption(
-                                            dealData:
-                                                Controller.DealList[index],
-                                          )));
+                                  // Navigator.of(context).push(MaterialPageRoute(
+                                  //     builder: (context) => dealDetailOption(
+                                  //           dealData:
+                                  //               Controller.DealList[index],
+                                  //         )));
                                 },
                                 child: Container(
                                   width: width,
@@ -165,23 +168,23 @@ class _HomePageState extends State<AdminHomePage> {
                                           children: [
                                             Row(
                                               children: [
-                                                Container(
-                                                  width: 40,
-                                                  height: 40,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    image: DecorationImage(
-                                                      fit: BoxFit.cover,
-                                                      image: NetworkImage(
-                                                          ApiConstans
-                                                                  .imageDealBaseUrl +
-                                                              Controller
-                                                                  .DealList[
-                                                                      index]
-                                                                  .image!),
-                                                    ),
-                                                  ),
-                                                ),
+                                                // Container(
+                                                //   width: 40,
+                                                //   height: 40,
+                                                //   decoration: BoxDecoration(
+                                                //     shape: BoxShape.circle,
+                                                //     image: DecorationImage(
+                                                //       fit: BoxFit.cover,
+                                                //       image: NetworkImage(
+                                                //           ApiConstans
+                                                //                   .imageDealBaseUrl +
+                                                //               Controller
+                                                //                   .DealList[
+                                                //                       index]
+                                                //                   .image!),
+                                                //     ),
+                                                //   ),
+                                                // ),
                                                 SizedBox(
                                                   width: 10,
                                                 ),
@@ -190,7 +193,7 @@ class _HomePageState extends State<AdminHomePage> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      "${Controller.DealList[index].property}",
+                                                      "${Controller.ExpensesList[index].expenseType}",
                                                       style: GoogleFonts
                                                           .plusJakartaSans(
                                                         fontWeight:
@@ -198,15 +201,7 @@ class _HomePageState extends State<AdminHomePage> {
                                                         fontSize: 18.0,
                                                       ),
                                                     ),
-                                                    Text(
-                                                      "Propert :${Controller.DealList[index].property}",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        fontSize: 12.0,
-                                                      ),
-                                                    ),
+
                                                   ],
                                                 ),
                                               ],
@@ -214,7 +209,7 @@ class _HomePageState extends State<AdminHomePage> {
                                             Row(
                                               children: [
                                                 Text(
-                                                  "Pkr ${Controller.DealList[index].soldPrice}",
+                                                  "Pkr ${Controller.ExpensesList[index].expenseAmount}",
                                                   style: GoogleFonts
                                                       .plusJakartaSans(
                                                     fontWeight: FontWeight.w700,
@@ -231,7 +226,7 @@ class _HomePageState extends State<AdminHomePage> {
                                               MainAxisAlignment.end,
                                           children: [
                                             Text(
-                                              "${Controller.DealList[index].date}",
+                                              "${Controller.ExpensesList[index].description}",
                                               style:
                                                   GoogleFonts.plusJakartaSans(
                                                 fontWeight: FontWeight.w400,

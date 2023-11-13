@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class HRHomePage extends StatefulWidget {
@@ -77,20 +78,22 @@ class _HomePageState extends State<HRHomePage> {
                 chartRadius: MediaQuery.of(context).size.width / 2.2,
                 //colorList: colorList,
                 initialAngleInDegree: 0,
+
                 chartType: ChartType.ring,
-                ringStrokeWidth: 5,
+                ringStrokeWidth: 32,
+                centerText: "Earning Graph",
                 legendOptions: LegendOptions(
                   showLegendsInRow: false,
-                  //legendPosition: LegendPosition.right,
+                  legendPosition: LegendPosition.right,
                   showLegends: true,
                   //legendShape: _BoxShape.circle,
-                  legendTextStyle: GoogleFonts.poppins(
+                  legendTextStyle: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 chartValuesOptions: ChartValuesOptions(
                   showChartValueBackground: true,
-                  showChartValues: false,
+                  showChartValues: true,
                   showChartValuesInPercentage: false,
                   showChartValuesOutside: false,
                   decimalPlaces: 1,
@@ -223,7 +226,7 @@ class _HomePageState extends State<HRHomePage> {
                                     ,
                                     children: [
                                       Text(
-                                        "${Controller.DealList[index].date}",
+                                        "${DateFormat('yyyy-MM-dd').format(DateTime.parse(Controller.DealList[index].date!))}",
                                         style: GoogleFonts.plusJakartaSans(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 14.0,

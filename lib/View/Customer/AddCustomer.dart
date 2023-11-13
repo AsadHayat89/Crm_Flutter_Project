@@ -114,7 +114,8 @@ class _ListYourPropertyScreenState extends State<AddCustomer> {
                         controller: Controller.CutomerCnic,
                         style: GoogleFonts.plusJakartaSans(color: Colors.black),
                         inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(13),
                         ],
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
@@ -134,7 +135,7 @@ class _ListYourPropertyScreenState extends State<AddCustomer> {
                           fillColor: AppColors.textFieldFillColore,
                           filled: true,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          hintText: 'Cnic',
+                          hintText: '00000-0000000-0',
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -183,7 +184,7 @@ class _ListYourPropertyScreenState extends State<AddCustomer> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 5, left: 20, right: 20),
-                    child: Textfield(hint: "Email",contentPadding:22,Contorller: Controller.Cutomeremail,),
+                    child: Textfield(hint: "example@gmail.com",contentPadding:22,Contorller: Controller.Cutomeremail,),
                   ),
 
                   Padding(
@@ -222,7 +223,8 @@ class _ListYourPropertyScreenState extends State<AddCustomer> {
                         controller: Controller.CutomerPhone,
                         style: GoogleFonts.plusJakartaSans(color: Colors.black),
                         inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(11),
                         ],
                         cursorColor: Colors.black,
                         decoration: InputDecoration(

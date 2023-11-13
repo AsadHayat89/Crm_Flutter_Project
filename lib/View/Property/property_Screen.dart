@@ -231,7 +231,7 @@ class _ListYourPropertyScreenState extends State<ListYourPropertyScreen> {
                           // ],
                         ),
                         child: TextFormField(
-                          controller: Controller.PropertyMoney,
+                          controller: Controller.PropertySize,
                           style: GoogleFonts.plusJakartaSans(color: Colors.black),
                           inputFormatters: <TextInputFormatter>[
                             FilteringTextInputFormatter.digitsOnly
@@ -266,7 +266,7 @@ class _ListYourPropertyScreenState extends State<ListYourPropertyScreen> {
                       ),
                     ),
 
-                  if(Controller.selectedTypeList.value=="Build")
+                  if(Controller.selectedTypeList.value=="Build" && Controller.typeBuilAppartment!="Shop" && Controller.typeBuilAppartment!="Plaza")
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [

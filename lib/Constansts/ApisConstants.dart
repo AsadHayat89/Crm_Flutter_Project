@@ -3,9 +3,14 @@ class ApiConstans{
   static String imageEmployeeBaseUrl="http://192.168.43.69:3000/images/EmployeeImage/";
   static String imageCutomerBaseUrl="http://192.168.43.69:3000/images/CustomerImages/";
   static String imageDealBaseUrl="http://192.168.43.69:3000/images/Deal/";
+  static String imageInvetryBaseUrl="http://192.168.43.69:3000/images/Inventry/";
+
 
   static String LoginUrl="/api/login";
   static String SignUpUrl="/api/signup";
+
+  static String addInventry='/api/AddInventry';
+  static String getInventry='/api/Inventry';
 
   static String getExpensedata='/api/expenses/total/current-month';
 

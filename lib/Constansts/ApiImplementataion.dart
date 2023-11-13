@@ -6,6 +6,7 @@ import 'package:crm_project/Model/Cutomer.dart';
 import 'package:crm_project/Model/DealModel.dart';
 import 'package:crm_project/Model/Employee.dart';
 import 'package:crm_project/Model/Expenses.dart';
+import 'package:crm_project/Model/Inventry.dart';
 import 'package:crm_project/Model/Profit.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/dio.dart';
@@ -122,8 +123,35 @@ class ApiImplementation {
     return Employee();
   }
 
+  static Future<List<Inventry>> getInventry() async {
+    List<Inventry> employessLsit = [];
+    try {
+      Response response = await dio.get(
+        ApiConstans.BaseUrl + ApiConstans.getInventry,
+        //headers: {"Content-Type": "multipart/form-data"},
+      );
+      if (response.data['status'] == 'error') {
+        // Employee authData = Employee();
+        return employessLsit;
+      } else if (response.data['status'] == "success") {
+        //Employee authData = Employee.fromJson(response.data['responce']);
+
+        for (var employeeData in response.data['responce']) {
+          print(employeeData.toString());
+          employessLsit.add(Inventry.fromJson(employeeData));
+          //employees.add(Employee.fromJson(employeeData));
+        }
+
+        return employessLsit;
+      }
+    } catch (e) {
+      return employessLsit;
+    }
+    return employessLsit;
+  }
+
   static Future<Expenses> AddExpenses(
-      Map<String, dynamic> data) async {
+      Map<String, dynamic> data,File imageFile) async {
     //await MultipartFile.fromFile(file.path, filename:fileName),
     //print("Image that we recive : " + data['image']);
     FormData formData = FormData.fromMap(data);
@@ -135,7 +163,17 @@ class ApiImplementation {
     //     multipartFile
     // ),);
 //    request.files.add(multipartFile);\
-
+    if (imageFile.existsSync()) {
+      formData.files.add(
+        MapEntry(
+          'image', // The key you want to use for the image
+          await MultipartFile.fromFile(
+            imageFile.path, // Replace with the actual path to your image file
+          ),
+        ),
+      );
+      print("data added2");
+    }
 
     try {
       print(ApiConstans.BaseUrl + ApiConstans.addExpenses);
@@ -376,6 +414,35 @@ class ApiImplementation {
         //Employee authData = Employee.fromJson(response.data['responce']);
         for (var employeeData in response.data['responce']) {
           employessLsit.add(Employee.fromJson(employeeData));
+          //employees.add(Employee.fromJson(employeeData));
+        }
+
+        return employessLsit;
+      }
+    } catch (e) {
+      print("failed: " + e.toString());
+      return employessLsit;
+    }
+    return employessLsit;
+  }
+
+  static Future<List<Expenses>> getTotalExpense() async{
+
+    List<Expenses> employessLsit=[];
+    try {
+      Response response = await dio.get(
+        ApiConstans.BaseUrl + ApiConstans.getAllExpense,
+        //headers: {"Content-Type": "multipart/form-data"},
+      );
+
+      print("reponce data: " + response.data['status'].toString());
+      if (response.data['status'] == 'error') {
+        // Employee authData = Employee();
+        return employessLsit;
+      } else if (response.data['status'] == "success") {
+        //Employee authData = Employee.fromJson(response.data['responce']);
+        for (var employeeData in response.data['responce']) {
+          employessLsit.add(Expenses.fromJson(employeeData));
           //employees.add(Employee.fromJson(employeeData));
         }
 

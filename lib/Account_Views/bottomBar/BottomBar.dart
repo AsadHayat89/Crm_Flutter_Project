@@ -3,6 +3,7 @@ import 'package:crm_project/Account_Views/DashBoard_Admin.dart';
 import 'package:crm_project/Account_Views/Deal/Deal_Info.dart';
 import 'package:crm_project/Account_Views/Employee/Employee_Detail.dart';
 import 'package:crm_project/Account_Views/customer/Cutomer_info.dart';
+import 'package:crm_project/Account_Views/inventry/inventryList.dart';
 import 'package:crm_project/Constants/Colors.dart';
 import 'package:crm_project/View/Customer/AddCustomer.dart';
 import 'package:crm_project/View/Customer/Controller/CutomerController.dart';
@@ -21,7 +22,7 @@ class AdminNavigationBar extends StatefulWidget {
     EmployeeAdminGridView(),
     DealList(),
     CutomerInfo(),
-
+    InventryHome()
   ];
 
   @override
@@ -92,6 +93,7 @@ class _MyNavigationBarState extends State<AdminNavigationBar> {
                 //
                 backgroundColor: Colors.white54,
               ),
+
               BottomNavigationBarItem(
                 label: "Cutomer",
                 icon: Padding(
@@ -99,6 +101,15 @@ class _MyNavigationBarState extends State<AdminNavigationBar> {
                   child: Icon(FontAwesomeIcons.person
                     ,size: 24,),
                 ),
+                backgroundColor: Colors.white54,
+              ),
+              BottomNavigationBarItem(
+                label: "Inventry",
+                icon: Icon(Icons.wallet_membership_outlined,
+                  color: _selectedIndex==4?AppColors.appBackground:AppColors.bottomIconUnSelected,
+                  size: 28,
+                ),
+                //
                 backgroundColor: Colors.white54,
               ),
 

@@ -54,8 +54,7 @@ class _AuthPageState extends State<AuthPage> {
                       height: 150,
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 60),
-                        child: SvgPicture.asset("assets/newlogo.svg",
-                            semanticsLabel: 'Acme Logo'),
+                        child: Image.asset("assets/logo.png"),
                       ))
                 ],
               ),

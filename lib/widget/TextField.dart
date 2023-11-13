@@ -33,7 +33,7 @@ class _TextfieldState extends State<Textfield> {
         maxLines: null,
         expands: true,
         controller: widget.Contorller,
-
+        textCapitalization: TextCapitalization.words,
         cursorColor: Colors.black,
         decoration: InputDecoration(
 

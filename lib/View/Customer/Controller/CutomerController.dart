@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:crm_project/View/Dashboard/Controller/dashboardController.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:crm_project/Constansts/ApiImplementataion.dart';
@@ -95,12 +96,19 @@ class CutomerController extends GetxController {
             CutomerPhone.text = "",
             CutomerAddress.text = "",
             CutomerSoldProperty.text = "",
+            ImageData = new File(""),
             if (value.email == null)
               {
                 print("data not enterd"),
+                ConstantToast.GetToast(
+                    "Error",
+                    "Data Uploading Failed",
+                    Colors.red[100]!,
+                    Colors.red),
               }
             else
               {
+                Get.find<DashBoardController>().allCustomer.add(value),
                 ConstantToast.GetToast("Congragulations", "SignIn Succesfull",
                     Colors.green[100]!, Colors.green),
                 print("data inserted"),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:crm_project/Constansts/ApiImplementataion.dart';
 import 'package:crm_project/Constansts/ConstantToast.dart';
 import 'package:crm_project/Model/Cutomer.dart';
@@ -19,6 +21,8 @@ class HRCController extends GetxController {
 
   RxList<Profit> profitList = <Profit>[].obs;
 
+  File ImageData=new File("");
+  RxString UploadedImage="".obs;
   TextEditingController expenseDescription = new TextEditingController();
   TextEditingController expenseMoney = new TextEditingController();
 
@@ -87,7 +91,7 @@ class HRCController extends GetxController {
         };
       }
 
-      ApiImplementation.AddExpenses(requestData).then((value) => {
+      ApiImplementation.AddExpenses(requestData,ImageData).then((value) => {
             if (value.sId == null || value.sId == "")
               {
                 ConstantToast.GetToast("Error", "Expenses Added Failed",
@@ -118,7 +122,7 @@ class HRCController extends GetxController {
       "employeeIds": e.cnic.toString(),
     };
 
-    ApiImplementation.AddExpenses(requestData).then((value) => {
+    ApiImplementation.AddExpenses(requestData,ImageData).then((value) => {
           if (value.sId == null || value.sId == "")
             {
               ConstantToast.GetToast("Error", "Expenses Added Failed",

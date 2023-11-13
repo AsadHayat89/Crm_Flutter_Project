@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -194,7 +195,7 @@ class _HomePageState extends State<HomePage> {
                                     ,
                                     children: [
                                       Text(
-                                        "${Controller.DealList[index].date}",
+                                        "${DateFormat('yyyy-MM-dd').format(DateTime.parse(Controller.DealList[index].date!))}",
                                         style: GoogleFonts.plusJakartaSans(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 14.0,

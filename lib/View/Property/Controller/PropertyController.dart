@@ -148,11 +148,11 @@ class PropertyController extends GetxController {
     } else if (ImageData.path == "") {
       ConstantToast.GetToast(
           "Error", "Please Upload Image", Colors.red[100]!, Colors.red);
-    } else if (int.parse(PropertySoldPrice.text) >
+    } else if (int.parse(PropertySoldPrice.text) <
         int.parse(PropertyMoney.text)) {
       ConstantToast.GetToast(
           "Error",
-          "Profit cant be greater then Actual Money",
+          "Sold Price should e greater then Actual Price",
           Colors.red[100]!,
           Colors.red);
     } else {
@@ -198,13 +198,17 @@ class PropertyController extends GetxController {
             PropertySoldPrice.text = "",
             PropertyDescriptions.text = "",
             PropertyLocation.text = "",
-            if (value.description != null)
+            if (value.description == null)
               {
                 print('dataa recive in description: ' +
                     value.description.toString()),
-              },
-            ConstantToast.GetToast("Congragulations", "Deal Added Succesfull",
-                Colors.green[100]!, Colors.green),
+              }
+            else
+              {
+                Get.find<DashBoardController>().DealList.add(value),
+                ConstantToast.GetToast("Congragulations",
+                    "Deal Added Succesfull", Colors.green[100]!, Colors.green),
+              }
           });
     }
     // Property res= await ApiServices.addPropertyService(imagesList,data);

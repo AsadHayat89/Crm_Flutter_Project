@@ -3,6 +3,8 @@ import 'package:crm_project/Constansts/ConstantToast.dart';
 import 'package:crm_project/Model/Cutomer.dart';
 import 'package:crm_project/Model/DealModel.dart';
 import 'package:crm_project/Model/Employee.dart';
+import 'package:crm_project/Model/Expenses.dart';
+import 'package:crm_project/Model/Inventry.dart';
 import 'package:crm_project/View/Auth/AuthPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +14,8 @@ class AccountController extends GetxController {
   RxList<Employee> allEmployee = <Employee>[].obs;
   RxList<Cutomer> allCustomer = <Cutomer>[].obs;
   RxList<DealModel> DealList = <DealModel>[].obs;
+  RxList<Inventry> InventryList = <Inventry>[].obs;
+  RxList<Expenses> ExpensesList=<Expenses>[].obs;
 
   RxMap<String, double> myMap = <String, double>{
     "Profit": 5,
@@ -29,10 +33,49 @@ class AccountController extends GetxController {
 
     getProfitDetail();
     getAllEmployess();
+    getAllInventryies();
+    getAllLoss();
+    getAllExpense();
+    //getProfitDetail();
     getAllCustomer();
     getAllDeals();
     getAllLoss();
     initShared();
+  }
+
+  getAllExpense() async{
+    ApiImplementation.getTotalExpense().then((value)=>{
+      print("Value we recived: "+value.length.toString()),
+      if(value.length>0){
+        ExpensesList.value=value,
+      }
+    });
+  }
+
+  getProfitDetail() async {
+    ApiImplementation.getProfitDetail().then((value) => {
+      print("Value Profit reciuved: " + value.toString()),
+      myMap['Profit'] = double.parse(value),
+    });
+  }
+
+  void getAllInventryies(){
+    ApiImplementation.getInventry().then((value) => {
+      if(value.length>0){
+        InventryList.value=value,
+
+      }
+      else{
+
+      }
+    });
+  }
+  getAllLoss() async {
+    ApiImplementation.getLossamount().then((value) => {
+      print("Value reciuved on All Expnses :  " + value.toString()),
+      myMap['Loss'] = double.parse(value),
+      //ExpensesList.value=value,
+    });
   }
 
   logout() async {
@@ -94,19 +137,9 @@ class AccountController extends GetxController {
             }
         });
   }
-  getAllLoss() async {
-    ApiImplementation.getLossamount().then((value) => {
-      print("Value reciuved on All Expnses :  " + value.toString()),
-      myMap['Loss'] = double.parse(value),
-      //ExpensesList.value=value,
-    });
-  }
-  getProfitDetail() async {
-    ApiImplementation.getProfitDetail().then((value) => {
-          print("Value reciuved: " + value.toString()),
-          myMap['Profit'] = double.parse(value),
-        });
-  }
+  //
+
+
 
   deleteDeal(String id) async {
     ApiImplementation.DeleteDeal(id).then((value) => {
