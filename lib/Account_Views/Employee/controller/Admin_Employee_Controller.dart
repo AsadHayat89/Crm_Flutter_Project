@@ -1,14 +1,11 @@
 import 'dart:io';
-import 'package:crm_project/View/Dashboard/Controller/dashboardController.dart';
-import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
 import 'package:crm_project/Constansts/ApiImplementataion.dart';
+import 'package:http/http.dart' as http;
 import 'package:crm_project/Constansts/ConstantToast.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EmployeeController extends GetxController {
+class AdminEmployeeControoler extends GetxController {
   TextEditingController PropertyName = new TextEditingController();
   TextEditingController PropertyMoney = new TextEditingController();
   TextEditingController EmployeeName = new TextEditingController();
@@ -26,12 +23,12 @@ class EmployeeController extends GetxController {
   RxString UserNameText = "Employee Name".obs;
 
   RxBool login = false.obs;
-
+  RxString ImageUrl = "".obs;
   RxString ImagePath = "".obs;
 
   File ImageData = File("");
 
-  void addEmployee() async {
+  void addEmployee(String Id) async {
     if (EmployeeName.text == "") {
       ConstantToast.GetToast(
           "Error",
@@ -93,14 +90,13 @@ class EmployeeController extends GetxController {
           "Please enter your Complete information and try again",
           Colors.red[100]!,
           Colors.red);
-    } else if (ImagePath.value == "") {
-      ConstantToast.GetToast("Error", "Please upload employees Image",
-          Colors.red[100]!, Colors.red);
     } else {
       login.value = true;
 
-      http.MultipartFile multipartFile =
-          await http.MultipartFile.fromPath('image', ImageData.path);
+      if (ImageData.path != "") {
+        http.MultipartFile multipartFile =
+            await http.MultipartFile.fromPath('image', ImageData.path);
+      }
 
       Map<String, dynamic> requestData = {
         "name": "${EmployeeName.text}",
@@ -112,37 +108,38 @@ class EmployeeController extends GetxController {
         "address": "${EmployeeAddress.text}",
         "salary": "${EmployeeSalary.text}",
         "commission": "${EmployeeComission.text}",
-        "image": multipartFile
+        "image": ""
       };
 
       print("Image file data: " + ImageData.path.toString());
-      ApiImplementation.AddEmployee(requestData, ImageData).then((value) => {
-            login.value = false,
-            EmployeeName.text = "",
-            EmployeeFatherName.text = "",
-            EmployeeCnic.text = "",
-            EmployeeSalary.text = "",
-            EmployeeAddress.text = "",
-            Employeeemail.text = "",
-            EmployeePhone.text = "",
-            EmailCity.text = "",
-            ImageData = new File(""),
-            EmployeeComission.text = "",
-            if (value.email == null)
-              {
-                print("data not enterd"),
-                ConstantToast.GetToast("Error", "Data Uploading failed",
-                    Colors.red[100]!, Colors.red),
-              }
-            else
-              {
-                Get.find<DashBoardController>().allEmployee.add(value),
-                ConstantToast.GetToast("Congragulations", "SignIn Succesfull",
-                    Colors.green[100]!, Colors.green),
-                print("data inserted"),
-                print("data inserted"),
-              }
-          });
+      ApiImplementation.UpdateEmployee(requestData, ImageData, Id)
+          .then((value) => {
+                login.value = false,
+                EmployeeName.text = "",
+                EmployeeFatherName.text = "",
+                EmployeeCnic.text = "",
+                EmployeeSalary.text = "",
+                EmployeeAddress.text = "",
+                Employeeemail.text = "",
+                EmployeePhone.text = "",
+                EmailCity.text = "",
+                ImageData = new File(""),
+                ImageUrl.value = "",
+                EmployeeComission.text = "",
+                if (value == false)
+                  {
+                    ConstantToast.GetToast("Error", "Data Updating failed",
+                        Colors.red[100]!, Colors.red),
+                  }
+                else
+                  {
+                    // Get.find<DashBoardController>().allEmployee.add(value),
+                    ConstantToast.GetToast("Congragulations",
+                        "UPdated Succesfull", Colors.green[100]!, Colors.green),
+                    // print("data inserted"),
+                    // print("data inserted"),
+                  }
+              });
     }
   }
 }

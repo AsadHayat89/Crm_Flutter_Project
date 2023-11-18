@@ -16,13 +16,14 @@ class HRCController extends GetxController {
   RxList<Employee> allEmployee = <Employee>[].obs;
 
   RxList<DealModel> DealList = <DealModel>[].obs;
+  RxList<DealModel> EmployeessDeals = <DealModel>[].obs;
 
   RxList<Expenses> ExpensesList = <Expenses>[].obs;
 
   RxList<Profit> profitList = <Profit>[].obs;
 
-  File ImageData=new File("");
-  RxString UploadedImage="".obs;
+  File ImageData = new File("");
+  RxString UploadedImage = "".obs;
   TextEditingController expenseDescription = new TextEditingController();
   TextEditingController expenseMoney = new TextEditingController();
 
@@ -82,16 +83,21 @@ class HRCController extends GetxController {
           "expenseAmount": expenseMoney.text,
           "description": expenseDescription.text,
           "employeeIds": "${selectedEmployee}",
+          "image": ""
         };
       } else {
         requestData = {
           "expenseType": "${selectedtype}",
           "expenseAmount": expenseMoney.text,
           "description": expenseDescription.text,
+          "image": ""
         };
       }
 
-      ApiImplementation.AddExpenses(requestData,ImageData).then((value) => {
+      ApiImplementation.AddExpenses(requestData, ImageData).then((value) => {
+            expenseMoney.text = "",
+            expenseDescription.text = "",
+            ImageData = new File(""),
             if (value.sId == null || value.sId == "")
               {
                 ConstantToast.GetToast("Error", "Expenses Added Failed",
@@ -113,16 +119,32 @@ class HRCController extends GetxController {
         MaterialPageRoute(builder: (context) => AuthPage()), (_) => false);
   }
 
+  getDealsByCnic(String Cnic) {
+    EmployeessDeals.clear();
+    EmployeessDeals.refresh();
+    update();
+    ApiImplementation.getDealsByCnic(Cnic).then((value) => {
+          if (value.length > 0)
+            {
+              EmployeessDeals.value = value,
+              EmployeessDeals.refresh(),
+              update(),
+            }
+        });
+  }
+
   PayEmployee(Employee e) {
     Map<String, dynamic> requestData;
+
     requestData = {
       "expenseType": "pay",
       "expenseAmount": e.salary,
       "description": "Pay to employee",
       "employeeIds": e.cnic.toString(),
+      "image": ""
     };
 
-    ApiImplementation.AddExpenses(requestData,ImageData).then((value) => {
+    ApiImplementation.AddExpenses(requestData, new File("")).then((value) => {
           if (value.sId == null || value.sId == "")
             {
               ConstantToast.GetToast("Error", "Expenses Added Failed",

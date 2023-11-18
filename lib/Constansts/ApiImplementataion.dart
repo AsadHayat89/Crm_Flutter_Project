@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:crm_project/Account_Views/Employee/Employee_update.dart';
 import 'package:crm_project/Constansts/ConstantToast.dart';
 import 'package:crm_project/Model/AuthDetail.dart';
 import 'package:crm_project/Model/Cutomer.dart';
@@ -58,8 +59,8 @@ class ApiImplementation {
       print("reponce data: " + response.data['status'].toString());
       if (response.data['status'] == 'error') {
         Auth authData = Auth();
-        ConstantToast.GetToast("Error", "${response.data['error']}",
-            Colors.red[100]!, Colors.red);
+        ConstantToast.GetToast(
+            "Error", "${response.data['error']}", Colors.red[100]!, Colors.red);
         return authData;
       } else if (response.data['status'] == "success") {
         Auth authData = Auth.fromJson(response.data['responce']);
@@ -123,6 +124,86 @@ class ApiImplementation {
     return Employee();
   }
 
+  static Future<bool> UpdateEmployee(
+      Map<String, dynamic> data, File imageFile,String ID) async {
+    //await MultipartFile.fromFile(file.path, filename:fileName),
+    //print("Image that we recive : " + data['image']);
+    FormData formData = FormData.fromMap(data);
+
+    if (imageFile.path!="") {
+      print("data added1");
+      formData.files.add(
+        MapEntry(
+          'image', // The key you want to use for the image
+          await MultipartFile.fromFile(
+            imageFile.path, // Replace with the actual path to your image file
+          ),
+        ),
+      );
+      print("data added2");
+    }
+
+    print(ApiConstans.BaseUrl + ApiConstans.deleteEmployee+"/"+ID);
+    try {
+      Response response = await dio.put(
+        ApiConstans.BaseUrl + ApiConstans.deleteEmployee+"/"+ID,
+        //headers: {"Content-Type": "multipart/form-data"},
+        data: formData,
+      );
+      print("reponce data: " + response.statusCode.toString());
+      if (response.statusCode != 200) {
+        Employee authData = Employee();
+        return false;
+      } else if (response.statusCode == 200) {
+        Employee authData = Employee.fromJson(response.data['responce']);
+        print("Auth REsponce dataL " + authData.email.toString());
+        return true;
+      }
+    } catch (e) {
+      print("failed: " + e.toString());
+      return false;
+    }
+    return true;
+  }
+  static Future<bool> UpdateDeal(
+      Map<String, dynamic> data, File imageFile,String ID) async {
+    //await MultipartFile.fromFile(file.path, filename:fileName),
+    //print("Image that we recive : " + data['image']);
+    FormData formData = FormData.fromMap(data);
+
+    if (imageFile.path!="") {
+      print("data added1");
+      formData.files.add(
+        MapEntry(
+          'image', // The key you want to use for the image
+          await MultipartFile.fromFile(
+            imageFile.path, // Replace with the actual path to your image file
+          ),
+        ),
+      );
+      print("data added2");
+    }
+
+    print(ApiConstans.BaseUrl + ApiConstans.addDeal+"/"+ID);
+    try {
+      Response response = await dio.put(
+        ApiConstans.BaseUrl + ApiConstans.addDeal+"/"+ID,
+        //headers: {"Content-Type": "multipart/form-data"},
+        data: formData,
+      );
+      print("reponce data: " + response.statusCode.toString());
+      if (response.statusCode != 200) {
+        return false;
+      } else if (response.statusCode == 200) {
+        return true;
+      }
+    } catch (e) {
+      print("failed: " + e.toString());
+      return false;
+    }
+    return true;
+  }
+
   static Future<List<Inventry>> getInventry() async {
     List<Inventry> employessLsit = [];
     try {
@@ -151,19 +232,11 @@ class ApiImplementation {
   }
 
   static Future<Expenses> AddExpenses(
-      Map<String, dynamic> data,File imageFile) async {
-    //await MultipartFile.fromFile(file.path, filename:fileName),
-    //print("Image that we recive : " + data['image']);
+      Map<String, dynamic> data, File imageFile) async {
     FormData formData = FormData.fromMap(data);
 
-    // http.MultipartFile multipartFile = await http.MultipartFile.fromPath(
-    //     'image', imageFile.path);
-    // formData.files.add( MapEntry(
-    //   'image', // The key you want to use for the image
-    //     multipartFile
-    // ),);
-//    request.files.add(multipartFile);\
-    if (imageFile.existsSync()) {
+
+    if(imageFile.path!=""){
       formData.files.add(
         MapEntry(
           'image', // The key you want to use for the image
@@ -172,8 +245,8 @@ class ApiImplementation {
           ),
         ),
       );
-      print("data added2");
     }
+
 
     try {
       print(ApiConstans.BaseUrl + ApiConstans.addExpenses);
@@ -198,25 +271,22 @@ class ApiImplementation {
     return Expenses();
   }
 
-  static Future<String> DeleteEmployee(
-      String Id) async {
+  static Future<String> DeleteEmployee(String Id) async {
     //await MultipartFile.fromFile(file.path, filename:fileName),
     //print("Image that we recive : " + data['image']);
 
     try {
-      print(ApiConstans.BaseUrl + ApiConstans.deleteEmployee+'/'+Id);
+      print(ApiConstans.BaseUrl + ApiConstans.deleteEmployee + '/' + Id);
       Response response = await dio.delete(
-        ApiConstans.BaseUrl + ApiConstans.deleteEmployee+'/'+Id,
+        ApiConstans.BaseUrl + ApiConstans.deleteEmployee + '/' + Id,
         //headers: {"Content-Type": "multipart/form-data"},
         //data: formData,
       );
       //print("responce receive: "+response.data);
       print("reponce data: " + response.data['status'].toString());
       if (response.data['status'] == 'error') {
-
         return response.data['error'];
       } else if (response.data['status'] == "success") {
-
         return response.data['responce'];
       }
     } catch (e) {
@@ -226,25 +296,22 @@ class ApiImplementation {
     return "";
   }
 
-  static Future<String> DeleteCustomer(
-      String Id) async {
+  static Future<String> DeleteCustomer(String Id) async {
     //await MultipartFile.fromFile(file.path, filename:fileName),
     //print("Image that we recive : " + data['image']);
 
     try {
-      print(ApiConstans.BaseUrl + ApiConstans.getAllCutomer+'/'+Id);
+      print(ApiConstans.BaseUrl + ApiConstans.getAllCutomer + '/' + Id);
       Response response = await dio.delete(
-        ApiConstans.BaseUrl + ApiConstans.getAllCutomer+'/'+Id,
+        ApiConstans.BaseUrl + ApiConstans.getAllCutomer + '/' + Id,
         //headers: {"Content-Type": "multipart/form-data"},
         //data: formData,
       );
       //print("responce receive: "+response.data);
       print("reponce data: " + response.data['status'].toString());
       if (response.data['status'] == 'error') {
-
         return response.data['error'];
       } else if (response.data['status'] == "success") {
-
         return response.data['responce'];
       }
     } catch (e) {
@@ -254,37 +321,31 @@ class ApiImplementation {
     return "";
   }
 
-  static Future<String> DeleteDeal(
-      String Id) async {
+  static Future<String> DeleteDeal(String Id) async {
     //await MultipartFile.fromFile(file.path, filename:fileName),
     //print("Image that we recive : " + data['image']);
 
     try {
-      print(ApiConstans.BaseUrl + ApiConstans.addDeal+'/'+Id);
+      print(ApiConstans.BaseUrl + ApiConstans.addDeal + '/' + Id);
       Response response = await dio.delete(
-        ApiConstans.BaseUrl + ApiConstans.addDeal+'/'+Id,
+        ApiConstans.BaseUrl + ApiConstans.addDeal + '/' + Id,
         //headers: {"Content-Type": "multipart/form-data"},
         //data: formData,
       );
       //print("responce receive: "+response.data);
       print("reponce data: " + response.data['status'].toString());
       if (response.data['status'] == 'error') {
-
         return response.data['error'];
       } else if (response.data['status'] == "success") {
-
         return response.data['responce'];
       }
     } catch (e) {
-      print("failed: " + e.toString());
       return e.toString();
     }
     return "";
   }
 
   static Future<String> getProfitDetail() async {
-    //await MultipartFile.fromFile(file.path, filename:fileName),
-    //print("Image that we recive : " + data['image']);
 
     try {
       Response response = await dio.get(
@@ -292,13 +353,14 @@ class ApiImplementation {
         //headers: {"Content-Type": "multipart/form-data"},
         //data: formData,
       );
-      print("responce receive: "+response.data.toString());
+      print("responce receive: " + response.data.toString());
       if (response.data['status'] == 'error') {
         print("faile");
         return response.data['error'];
       } else if (response.data['status'] == "success") {
         print("pass");
-        print("Data recived: "+response.data['responce']['totalCompanyProfit'].toString());
+        print("Data recived: " +
+            response.data['responce']['totalCompanyProfit'].toString());
         return response.data['responce']['totalCompanyProfit'].toString();
       }
     } catch (e) {
@@ -308,13 +370,12 @@ class ApiImplementation {
     return "";
   }
 
-
   static Future<DealModel> AddDeal(
       Map<String, dynamic> data, File imageFile) async {
     FormData formData = FormData.fromMap(data);
 
     if (imageFile.existsSync()) {
-     formData.files.add(
+      formData.files.add(
         MapEntry(
           'image', // The key you want to use for the image
           await MultipartFile.fromFile(
@@ -338,7 +399,7 @@ class ApiImplementation {
         return authData;
       } else if (response.data['status'] == "success") {
         DealModel authData = DealModel.fromJson(response.data['responce']);
-       // print("Auth REsponce dataL " + authData.email.toString());
+        // print("Auth REsponce dataL " + authData.email.toString());
         return authData;
       }
     } catch (e) {
@@ -398,8 +459,47 @@ class ApiImplementation {
     return Cutomer();
   }
 
+  static Future<bool> UpdateCustomer(
+      Map<String, dynamic> data, File imageFile,String ID) async {
+    //await MultipartFile.fromFile(file.path, filename:fileName),
+    //print("Image that we recive : " + data['image']);
+    FormData formData = FormData.fromMap(data);
+
+    if (imageFile.path!="") {
+      print("data added1");
+      formData.files.add(
+        MapEntry(
+          'image', // The key you want to use for the image
+          await MultipartFile.fromFile(
+            imageFile.path, // Replace with the actual path to your image file
+          ),
+        ),
+      );
+      print("data added2");
+    }
+
+    print(ApiConstans.BaseUrl + ApiConstans.getAllCutomer+"/"+ID);
+    try {
+      Response response = await dio.put(
+        ApiConstans.BaseUrl + ApiConstans.getAllCutomer+"/"+ID,
+        //headers: {"Content-Type": "multipart/form-data"},
+        data: formData,
+      );
+      print("reponce data: " + response.statusCode.toString());
+      if (response.statusCode != 200) {
+        return false;
+      } else if (response.statusCode == 200) {
+        return true;
+      }
+    } catch (e) {
+      print("failed: " + e.toString());
+      return false;
+    }
+    return true;
+  }
+
   static Future<List<Employee>> getAllEmployees() async {
-    List<Employee> employessLsit=[];
+    List<Employee> employessLsit = [];
     try {
       Response response = await dio.get(
         ApiConstans.BaseUrl + ApiConstans.getAllEmployees,
@@ -408,7 +508,7 @@ class ApiImplementation {
 
       print("reponce data: " + response.data['status'].toString());
       if (response.data['status'] == 'error') {
-       // Employee authData = Employee();
+        // Employee authData = Employee();
         return employessLsit;
       } else if (response.data['status'] == "success") {
         //Employee authData = Employee.fromJson(response.data['responce']);
@@ -426,22 +526,25 @@ class ApiImplementation {
     return employessLsit;
   }
 
-  static Future<List<Expenses>> getTotalExpense() async{
+  static Future<List<Expenses>> getTotalExpense(
+      Map<String, dynamic> data
+      ) async {
+    List<Expenses> employessLsit = [];
+    FormData formData = FormData.fromMap(data);
 
-    List<Expenses> employessLsit=[];
     try {
       Response response = await dio.get(
         ApiConstans.BaseUrl + ApiConstans.getAllExpense,
+        data: formData
         //headers: {"Content-Type": "multipart/form-data"},
       );
-
-      print("reponce data: " + response.data['status'].toString());
+      print("reponce for expenses list  data: " + response.data['response'][0]["expenses"].toString());
       if (response.data['status'] == 'error') {
         // Employee authData = Employee();
         return employessLsit;
       } else if (response.data['status'] == "success") {
         //Employee authData = Employee.fromJson(response.data['responce']);
-        for (var employeeData in response.data['responce']) {
+        for (var employeeData in response.data['response'][0]["expenses"]) {
           employessLsit.add(Expenses.fromJson(employeeData));
           //employees.add(Employee.fromJson(employeeData));
         }
@@ -455,21 +558,20 @@ class ApiImplementation {
     return employessLsit;
   }
 
-  static Future<String> getLossamount() async{
-
+  static Future<String> getLossamount() async {
     try {
       Response response = await dio.get(
         ApiConstans.BaseUrl + ApiConstans.getExpensedata,
         //headers: {"Content-Type": "multipart/form-data"},
       );
 
-      print("reponce data: " + response.data['status'].toString());
+      print("reponce Expenses data: " + response.data['responce'].toString());
       if (response.data['status'] == 'error') {
         // Employee authData = Employee();
         return response.data['error'];
       } else if (response.data['status'] == "success") {
         //Employee authData = Employee.fromJson(response.data['responce']);
-
+        print("reponce Expenses data: " + response.data['responce'].toString());
         return response.data['responce'].toString();
       }
     } catch (e) {
@@ -479,8 +581,8 @@ class ApiImplementation {
     return "";
   }
 
-  static Future<List<Profit>> getProfitList() async{
-    List<Profit> employessLsit=[];
+  static Future<List<Profit>> getProfitList() async {
+    List<Profit> employessLsit = [];
     try {
       Response response = await dio.get(
         ApiConstans.BaseUrl + ApiConstans.getProfit,
@@ -507,7 +609,7 @@ class ApiImplementation {
   }
 
   static Future<List<Expenses>> getAllExpenses() async {
-    List<Expenses> employessLsit=[];
+    List<Expenses> employessLsit = [];
     try {
       Response response = await dio.get(
         ApiConstans.BaseUrl + ApiConstans.getAllExpense,
@@ -535,7 +637,7 @@ class ApiImplementation {
   }
 
   static Future<List<DealModel>> getAllDeals() async {
-    List<DealModel> employessLsit=[];
+    List<DealModel> employessLsit = [];
     try {
       print("reache ere");
       Response response = await dio.get(
@@ -563,11 +665,42 @@ class ApiImplementation {
     return employessLsit;
   }
 
+  static Future<List<DealModel>> getDealsByCnic(String Cnic) async {
+    List<DealModel> employessLsit = [];
+    try {
+      print(ApiConstans.BaseUrl + ApiConstans.getDealsbyCnic+Cnic);
+      Response response = await dio.get(
+        ApiConstans.BaseUrl + ApiConstans.getDealsbyCnic+Cnic,
+        //headers: {"Content-Type": "multipart/form-data"},
+      );
+      print("reponce by get Emplye by CNinc: "+response.data['status'].toString());
+      if (response.data['status'] == 'error') {
+        // Employee authData = Employee();
+        return employessLsit;
+      } else if (response.data['status'] == "success") {
+        //Employee authData = Employee.fromJson(response.data['responce']);
+
+        for (var employeeData in response.data['responce']) {
+          print(employeeData.toString());
+          employessLsit.add(DealModel.fromJson(employeeData));
+          //employees.add(Employee.fromJson(employeeData));
+        }
+
+        return employessLsit;
+      }
+    } catch (e) {
+      print("failed: " + e.toString());
+      return employessLsit;
+    }
+    return employessLsit;
+  }
+
   static Future<List<Cutomer>> getAllCustomers() async {
-    List<Cutomer> employessLsit=[];
+    List<Cutomer> employessLsit = [];
 
     try {
-      print("Sending request: "+(ApiConstans.BaseUrl + ApiConstans.getAllCutomer));
+      print("Sending request: " +
+          (ApiConstans.BaseUrl + ApiConstans.getAllCutomer));
       Response response = await dio.get(
         ApiConstans.BaseUrl + ApiConstans.getAllCutomer,
         //headers: {"Content-Type": "multipart/form-data"},

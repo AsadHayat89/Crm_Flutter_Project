@@ -1,6 +1,6 @@
 
 import 'package:crm_project/Account_Views/DashBoard_Admin.dart';
-import 'package:crm_project/Account_Views/Deal/Deal_Info.dart';
+import 'package:crm_project/Account_Views/Expenses/Expenses_Info.dart';
 import 'package:crm_project/Account_Views/Employee/Employee_Detail.dart';
 import 'package:crm_project/Account_Views/customer/Cutomer_info.dart';
 import 'package:crm_project/Account_Views/inventry/inventryList.dart';
@@ -20,7 +20,7 @@ class AdminNavigationBar extends StatefulWidget {
   static List<Widget> _widgetOptions = <Widget>[
     AdminHomePage(),
     EmployeeAdminGridView(),
-    DealList(),
+    ExpenseList(),
     CutomerInfo(),
     InventryHome()
   ];
@@ -85,7 +85,7 @@ class _MyNavigationBarState extends State<AdminNavigationBar> {
                   // title: Text('Search'),
                   backgroundColor: Colors.white54),
               BottomNavigationBarItem(
-                label: "Deal",
+                label: "Expenses",
                 icon: Icon(Icons.wallet_membership_outlined,
                   color: _selectedIndex==2?AppColors.appBackground:AppColors.bottomIconUnSelected,
                   size: 28,

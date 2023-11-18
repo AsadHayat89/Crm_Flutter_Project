@@ -4,6 +4,7 @@ class Expenses {
   String? description;
   String? employeeIds;
   String? sId;
+  String? image;
   int? iV;
 
   Expenses(
@@ -12,6 +13,7 @@ class Expenses {
         this.description,
         this.employeeIds,
         this.sId,
+        this.image,
         this.iV});
 
   Expenses.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class Expenses {
     description = json['description'];
     employeeIds = json['employeeIds'];
     sId = json['_id'];
+    image=json['image'];
     iV = json['__v'];
   }
 
@@ -31,6 +34,7 @@ class Expenses {
     data['employeeIds'] = this.employeeIds;
     data['_id'] = this.sId;
     data['__v'] = this.iV;
+    data['image']=this.image;
     return data;
   }
 }

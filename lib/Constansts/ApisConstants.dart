@@ -4,7 +4,7 @@ class ApiConstans{
   static String imageCutomerBaseUrl="http://192.168.43.69:3000/images/CustomerImages/";
   static String imageDealBaseUrl="http://192.168.43.69:3000/images/Deal/";
   static String imageInvetryBaseUrl="http://192.168.43.69:3000/images/Inventry/";
-
+  static String imageExpensesBaseUrl="http://192.168.43.69:3000/images/Expenses/";
 
   static String LoginUrl="/api/login";
   static String SignUpUrl="/api/signup";
@@ -21,6 +21,8 @@ class ApiConstans{
   static String getAllExpense='/api/expenses';
 
   static String addExpenses='/api/expenses';
+
+  static String getDealsbyCnic='/api/getDealsByCnic/';
 
   static String addDeal='/api/deals';
   static String getProfit='/api/Profit';

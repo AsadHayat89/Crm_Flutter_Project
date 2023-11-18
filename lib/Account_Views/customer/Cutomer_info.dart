@@ -1,4 +1,5 @@
 import 'package:crm_project/Account_Views/controller/accountController.dart';
+import 'package:crm_project/Account_Views/customer/Customer_Detail.dart';
 import 'package:crm_project/Constansts/ApisConstants.dart';
 import 'package:crm_project/Constants/Colors.dart';
 import 'package:crm_project/View/Customer/CutomerDetails.dart';
@@ -162,6 +163,9 @@ class _EmployeeAdminGridViewState extends State<CutomerInfo> {
                                           GestureDetector(
                                             onTap:(){
                                               print("on Delet");
+                                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => CustomerDetail(
+                                                customer: Controller.allCustomer[index],
+                                              )));
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(

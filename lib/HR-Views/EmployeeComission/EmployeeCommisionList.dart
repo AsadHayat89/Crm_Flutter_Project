@@ -62,9 +62,9 @@ class _EmployeeListState extends State<EmployeeList> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   CommissionDetail(
-                                                    SiD: Controller.allEmployee[index].sId.toString(),
-                                                    Pay: Controller.allEmployee[index].salary.toString(),
-                                                  )));
+                                                    Cnic:Controller.allEmployee[index].cnic.toString(),
+                                                  )
+                                          ));
                                       // Navigator.of(context).push(MaterialPageRoute(builder: (context) => EmployeeInfoPage()));
                                     },
                                     child: Padding(

@@ -1,15 +1,14 @@
 import 'dart:io';
 
+import 'package:crm_project/Account_Views/controller/accountController.dart';
 import 'package:crm_project/Constansts/ApiImplementataion.dart';
 import 'package:crm_project/Constansts/ConstantToast.dart';
 import 'package:crm_project/Model/Cutomer.dart';
 import 'package:crm_project/Model/Employee.dart';
-import 'package:crm_project/View/Dashboard/Controller/dashboardController.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class PropertyController extends GetxController {
+class DealUpdateController extends GetxController {
   RxString Name = "Property Name".obs;
   RxString Country = "".obs;
   RxString state = "".obs;
@@ -27,6 +26,7 @@ class PropertyController extends GetxController {
   String companyProfit = "";
   RxString UploadedImage = "No Image Selected yet".obs;
   File ImageData = File("");
+  RxString ImageUrl="".obs;
 
   List<Employee> employeessList = [];
   List<String> EmployeesCnic = ["0"];
@@ -60,11 +60,11 @@ class PropertyController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    employeessList = Get.find<DashBoardController>().allEmployee;
+    employeessList = Get.find<AccountController>().allEmployee;
     if (employeessList.length > 0) {
       EmployeesCnic = employeessList.map((e) => e.cnic.toString()).toList();
       // EmployeesPercentageList = employeessList.map((e) => e.commission!).toList();
-      customersList = Get.find<DashBoardController>().allCustomer;
+      customersList = Get.find<AccountController>().allCustomer;
       CutomersCnic = customersList.map((e) => e.cnic.toString()).toList();
       print(EmployeesCnic);
       initialCustomerSlection = CutomersCnic[0]!;
@@ -114,7 +114,7 @@ class PropertyController extends GetxController {
     }
   }
 
-  Future<bool> SendApi() async {
+  Future<bool> SendApi(String ID) async {
     if (PropertyName.text == "") {
       ConstantToast.GetToast(
           "Error",
@@ -156,11 +156,10 @@ class PropertyController extends GetxController {
           Colors.red[100]!,
           Colors.red);
     } else {
-
       //print("Total Percentage: " + empoloyeesPercentage.toString());
       int SoldPrice = int.parse(PropertySoldPrice.text);
-      int ActualPrice=int.parse(PropertyMoney.text);
-      int ProfitPrice=SoldPrice-ActualPrice;
+      int ActualPrice = int.parse(PropertyMoney.text);
+      int ProfitPrice = SoldPrice - ActualPrice;
       double employeesData = ProfitPrice * (empoloyeesPercentage / 100);
       print("employees percentage: " + employeesData.toString());
       double companyPercentage = ProfitPrice - employeesData;
@@ -188,7 +187,7 @@ class PropertyController extends GetxController {
         "location": "${PropertyLocation.text}",
       };
 
-      ApiImplementation.AddDeal(requestData, ImageData).then((value) => {
+      ApiImplementation.UpdateDeal(requestData, ImageData,ID).then((value) => {
             login.value = false,
             PropertyName.text = "",
             PropertySize.text = "",
@@ -201,16 +200,18 @@ class PropertyController extends GetxController {
             PropertySoldPrice.text = "",
             PropertyDescriptions.text = "",
             PropertyLocation.text = "",
-            if (value.description == null)
+            if (value== false)
               {
-                print('dataa recive in description: ' +
-                    value.description.toString()),
+                ConstantToast.GetToast(
+                    "Error",
+                    "Updation Failed",
+                    Colors.red[100]!,
+                    Colors.red),
               }
             else
               {
-                Get.find<DashBoardController>().DealList.add(value),
-                ConstantToast.GetToast("Congragulations",
-                    "Deal Added Succesfull", Colors.green[100]!, Colors.green),
+                ConstantToast.GetToast("Success", "Updated SuccessFully",
+                    Colors.green[100]!, Colors.green),
               }
           });
     }

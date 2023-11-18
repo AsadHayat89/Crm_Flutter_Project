@@ -8,6 +8,7 @@ import 'package:crm_project/Model/Inventry.dart';
 import 'package:crm_project/View/Auth/AuthPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountController extends GetxController {
@@ -15,7 +16,7 @@ class AccountController extends GetxController {
   RxList<Cutomer> allCustomer = <Cutomer>[].obs;
   RxList<DealModel> DealList = <DealModel>[].obs;
   RxList<Inventry> InventryList = <Inventry>[].obs;
-  RxList<Expenses> ExpensesList=<Expenses>[].obs;
+  RxList<Expenses> ExpensesList = <Expenses>[].obs;
 
   RxMap<String, double> myMap = <String, double>{
     "Profit": 5,
@@ -30,12 +31,16 @@ class AccountController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    DateTime currentDate = DateTime.now();
 
+    // Get current month and year
+    String currentMonth = DateFormat('MM').format(currentDate);
+    String currentYear = DateFormat('yyyy').format(currentDate);
     getProfitDetail();
     getAllEmployess();
     getAllInventryies();
     getAllLoss();
-    getAllExpense();
+    getAllExpense(currentMonth, currentYear);
     //getProfitDetail();
     getAllCustomer();
     getAllDeals();
@@ -43,39 +48,45 @@ class AccountController extends GetxController {
     initShared();
   }
 
-  getAllExpense() async{
-    ApiImplementation.getTotalExpense().then((value)=>{
-      print("Value we recived: "+value.length.toString()),
-      if(value.length>0){
-        ExpensesList.value=value,
-      }
-    });
+  getAllExpense(String month, String year) async {
+    Map<String, dynamic> requestData = {"month": "${month}", "year": "${year}"};
+    ExpensesList.clear();
+    ExpensesList.refresh();
+
+    print("datae we send :+ " + requestData.toString());
+    ApiImplementation.getTotalExpense(requestData).then((value) => {
+          print("Value we recived: " + value.length.toString()),
+          if (value.length > 0)
+            {
+              ExpensesList.value = value,
+            }
+        });
   }
 
   getProfitDetail() async {
     ApiImplementation.getProfitDetail().then((value) => {
-      print("Value Profit reciuved: " + value.toString()),
-      myMap['Profit'] = double.parse(value),
-    });
+          print("Value Profit reciuved: " + value.toString()),
+          myMap['Profit'] = double.parse(value),
+        });
   }
 
-  void getAllInventryies(){
+  void getAllInventryies() {
     ApiImplementation.getInventry().then((value) => {
-      if(value.length>0){
-        InventryList.value=value,
-
-      }
-      else{
-
-      }
-    });
+          if (value.length > 0)
+            {
+              InventryList.value = value,
+            }
+          else
+            {}
+        });
   }
+
   getAllLoss() async {
     ApiImplementation.getLossamount().then((value) => {
-      print("Value reciuved on All Expnses :  " + value.toString()),
-      myMap['Loss'] = double.parse(value),
-      //ExpensesList.value=value,
-    });
+          print("Value reciuved on All Expnses :  " + value.toString()),
+          myMap['Loss'] = double.parse(value),
+          //ExpensesList.value=value,
+        });
   }
 
   logout() async {
@@ -84,6 +95,7 @@ class AccountController extends GetxController {
     Navigator.pushAndRemoveUntil(Get.context!,
         MaterialPageRoute(builder: (context) => AuthPage()), (_) => false);
   }
+
   deleteEmployee(String id) async {
     ApiImplementation.DeleteEmployee(id).then((value) => {
           if (value == "success")
@@ -137,9 +149,8 @@ class AccountController extends GetxController {
             }
         });
   }
+
   //
-
-
 
   deleteDeal(String id) async {
     ApiImplementation.DeleteDeal(id).then((value) => {
