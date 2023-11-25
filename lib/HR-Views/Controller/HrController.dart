@@ -10,6 +10,7 @@ import 'package:crm_project/Model/Profit.dart';
 import 'package:crm_project/View/Auth/AuthPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HRCController extends GetxController {
@@ -29,7 +30,7 @@ class HRCController extends GetxController {
 
   RxBool Loading = false.obs;
 
-  List<String> typeList = ['other', 'pay'];
+  List<String> typeList = ['other'];
   RxString selectedtype = 'other'.obs;
   List<String> EmployeesCnic = ["0"];
   RxString selectedEmployee = "0".obs;
@@ -47,14 +48,32 @@ class HRCController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-
+    DateTime currentDate = DateTime.now();
+    String currentMonth = DateFormat('MM').format(currentDate);
+    String currentYear = DateFormat('yyyy').format(currentDate);
     getProfitDetail();
     getAllEmployess();
     getAllExpensse();
+    getAllExpense(currentMonth, currentYear);
     getAllProfitList();
     getAllDeals();
     getAllLoss();
     initShared();
+  }
+
+  getAllExpense(String month, String year) async {
+    Map<String, dynamic> requestData = {"month": "${month}", "year": "${year}"};
+    ExpensesList.clear();
+    ExpensesList.refresh();
+
+    print("datae we send :+ " + requestData.toString());
+    ApiImplementation.getTotalExpense(requestData).then((value) => {
+          print("Value we recived: " + value.length.toString()),
+          if (value.length > 0)
+            {
+              ExpensesList.value = value,
+            }
+        });
   }
 
   bool checkEmployeeGetPaid(String Cnic) {

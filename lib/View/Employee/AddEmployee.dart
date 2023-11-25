@@ -211,7 +211,40 @@ class _ListYourPropertyScreenState extends State<AddEmployee> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 5, left: 20, right: 20),
-                      child: Textfield(hint: "Phone",contentPadding:22,Contorller: Controller.EmployeePhone,),
+                      child: TextFormField(
+                        controller: Controller.EmployeePhone,
+                        style: GoogleFonts.plusJakartaSans(color: Colors.black),
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(11),
+                        ],
+                        cursorColor: Colors.black,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                            BorderSide(color: Colors.transparent, width: 1.0),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                            BorderSide(color: Colors.transparent, width: 1.0),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          fillColor: AppColors.textFieldFillColore,
+                          filled: true,
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          hintText: '12342534',
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your cninc';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
 
                     Padding(
@@ -263,7 +296,7 @@ class _ListYourPropertyScreenState extends State<AddEmployee> {
                           child: Padding(
                             padding: EdgeInsets.only(left: 20),
                             child: Text(
-                              "Employee Destination",
+                              "Employee Designation",
                               style: GoogleFonts.plusJakartaSans(
                                   fontSize: 14,
 
@@ -274,7 +307,7 @@ class _ListYourPropertyScreenState extends State<AddEmployee> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 5, left: 20, right: 20),
-                      child: Textfield(hint: "Destination",contentPadding:22,Contorller: Controller.desination,),
+                      child: Textfield(hint: "Designation",contentPadding:22,Contorller: Controller.desination,),
                     ),
                     // Padding(
                     //   padding: EdgeInsets.only(top: 20),

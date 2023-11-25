@@ -1,3 +1,4 @@
+
 class DealModel {
   String? sId;
   String? propertyType;
@@ -5,6 +6,8 @@ class DealModel {
   String? propertySize;
   String? rooms;
   String? bedroom;
+  String? employeeProfit;
+  String? companyProfit;
   String? date;
   String? bathroom;
   int? employeeCnic;
@@ -29,6 +32,8 @@ class DealModel {
         this.bathroom,
         this.employeeCnic,
         this.employeeName,
+        this.companyProfit,
+        this.employeeProfit,
         this.customerCnic,
         this.customerName,
         this.actualPrice,
@@ -49,6 +54,8 @@ class DealModel {
     bedroom = json['bedroom'];
     date=json['date'];
     bathroom = json['bathroom'];
+    companyProfit=json['companyProfit'];
+    employeeProfit=json['employeeProfit'];
     employeeCnic = json['employeeCnic'];
     employeeName = json['employeeName'];
     customerCnic = json['customerCnic'];

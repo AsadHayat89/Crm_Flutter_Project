@@ -43,97 +43,100 @@ class _MyNavigationBarState extends State<AdminNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
 
-      body:Center(
-        child: AdminNavigationBar._widgetOptions.elementAt(_selectedIndex),
-      ),
-
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 20,
-              blurRadius: 15,
-              offset: Offset(
-                  0, 1), // changes position of shadow
-            ),
-          ],
+        body:Center(
+          child: AdminNavigationBar._widgetOptions.elementAt(_selectedIndex),
         ),
-        child:
 
-        BottomNavigationBar(
-            showUnselectedLabels: true,
-
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                  label: "Home",
-
-                  icon: Padding(
-                    padding: EdgeInsets.only(bottom: 5),
-                    child: Icon(FontAwesomeIcons.home,size: 24,),
-                  ),
-                  // title: Text('Home'),
-                  backgroundColor: Colors.white54),
-              BottomNavigationBarItem(
-                  icon: Padding(
-                    padding: EdgeInsets.only(bottom: 5),
-                    child: Icon(Icons.person,size: 24,),
-                  ),
-                  label: "Employee",
-                  // title: Text('Search'),
-                  backgroundColor: Colors.white54),
-              BottomNavigationBarItem(
-                label: "Expenses",
-                icon: Icon(Icons.wallet_membership_outlined,
-                  color: _selectedIndex==2?AppColors.appBackground:AppColors.bottomIconUnSelected,
-                  size: 28,
-                ),
-                //
-                backgroundColor: Colors.white54,
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 20,
+                blurRadius: 15,
+                offset: Offset(
+                    0, 1), // changes position of shadow
               ),
-
-              BottomNavigationBarItem(
-                label: "Cutomer",
-                icon: Padding(
-                  padding: EdgeInsets.only(bottom: 5),
-                  child: Icon(FontAwesomeIcons.person
-                    ,size: 24,),
-                ),
-                backgroundColor: Colors.white54,
-              ),
-              BottomNavigationBarItem(
-                label: "Inventry",
-                icon: Icon(Icons.wallet_membership_outlined,
-                  color: _selectedIndex==4?AppColors.appBackground:AppColors.bottomIconUnSelected,
-                  size: 28,
-                ),
-                //
-                backgroundColor: Colors.white54,
-              ),
-
-
-
             ],
-            type:  BottomNavigationBarType.fixed,
-            currentIndex: _selectedIndex,
-            selectedItemColor: AppColors.appBackground,
-            unselectedItemColor: AppColors.bottomIconUnSelected,
-            selectedFontSize: 16,
-            unselectedFontSize:10,
-            iconSize: 40,
-            onTap: (value){
-              print("selected values: "+value.toString());
-              //_selectedIndex
-              setState(() {
-                _selectedIndex=value;
-              });
-              print("values we get: "+value.toString());
-            },
-            elevation: 5),
+          ),
+          child:
+
+          BottomNavigationBar(
+              showUnselectedLabels: true,
+
+              items: <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                    label: "Home",
+
+                    icon: Padding(
+                      padding: EdgeInsets.only(bottom: 5),
+                      child: Icon(FontAwesomeIcons.home,size: 24,),
+                    ),
+                    // title: Text('Home'),
+                    backgroundColor: Colors.white54),
+                BottomNavigationBarItem(
+                    icon: Padding(
+                      padding: EdgeInsets.only(bottom: 5),
+                      child: Icon(Icons.person,size: 24,),
+                    ),
+                    label: "Employee",
+                    // title: Text('Search'),
+                    backgroundColor: Colors.white54),
+                BottomNavigationBarItem(
+                  label: "Expenses",
+                  icon: Icon(Icons.wallet_membership_outlined,
+                    color: _selectedIndex==2?AppColors.appBackground:AppColors.bottomIconUnSelected,
+                    size: 28,
+                  ),
+                  //
+                  backgroundColor: Colors.white54,
+                ),
+
+                BottomNavigationBarItem(
+                  label: "Cutomer",
+                  icon: Padding(
+                    padding: EdgeInsets.only(bottom: 5),
+                    child: Icon(FontAwesomeIcons.person
+                      ,size: 24,),
+                  ),
+                  backgroundColor: Colors.white54,
+                ),
+                BottomNavigationBarItem(
+                  label: "Inventry",
+                  icon: Icon(Icons.wallet_membership_outlined,
+                    color: _selectedIndex==4?AppColors.appBackground:AppColors.bottomIconUnSelected,
+                    size: 28,
+                  ),
+                  //
+                  backgroundColor: Colors.white54,
+                ),
+
+
+
+              ],
+              type:  BottomNavigationBarType.fixed,
+              currentIndex: _selectedIndex,
+              selectedItemColor: AppColors.appBackground,
+              unselectedItemColor: AppColors.bottomIconUnSelected,
+              selectedFontSize: 16,
+              unselectedFontSize:10,
+              iconSize: 40,
+              onTap: (value){
+                print("selected values: "+value.toString());
+                //_selectedIndex
+                setState(() {
+                  _selectedIndex=value;
+                });
+                print("values we get: "+value.toString());
+              },
+              elevation: 5),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
   Future<void> showSimplePopup(BuildContext context) async {

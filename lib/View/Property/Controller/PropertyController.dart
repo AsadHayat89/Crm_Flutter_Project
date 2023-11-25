@@ -34,8 +34,8 @@ class PropertyController extends GetxController {
   List<String> CutomersCnic = ["0"];
   List<int> EmployeesPercentageList = [0];
   int empoloyeesPercentage = 0;
-  String initialEmployeeSlection = "0";
-  String initialCustomerSlection = "0";
+  RxString initialEmployeeSlection = "0".obs;
+  RxString initialCustomerSlection = "0".obs;
 
   TextEditingController PropertyName = TextEditingController();
   TextEditingController PropertySize = TextEditingController();
@@ -56,6 +56,7 @@ class PropertyController extends GetxController {
   RxList<String> ListAmentiesAssets = <String>[].obs;
   RxList<String> ListFeatures = <String>[].obs;
 
+  RxDouble fontSize=14.0.obs;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -67,8 +68,8 @@ class PropertyController extends GetxController {
       customersList = Get.find<DashBoardController>().allCustomer;
       CutomersCnic = customersList.map((e) => e.cnic.toString()).toList();
       print(EmployeesCnic);
-      initialCustomerSlection = CutomersCnic[0]!;
-      initialEmployeeSlection = EmployeesCnic[0]!;
+      initialCustomerSlection.value = CutomersCnic[0]!;
+      initialEmployeeSlection.value = EmployeesCnic[0]!;
     }
 
     // empoloyeesPercentage = EmployeesPercentageList[0]!;
@@ -201,6 +202,8 @@ class PropertyController extends GetxController {
             PropertySoldPrice.text = "",
             PropertyDescriptions.text = "",
             PropertyLocation.text = "",
+        UploadedImage.value="",
+          ImageData=new File(""),
             if (value.description == null)
               {
                 print('dataa recive in description: ' +

@@ -263,7 +263,7 @@ class _ListYourPropertyScreenState extends State<AddCustomer> {
                         child: Padding(
                           padding: EdgeInsets.only(left: 20),
                           child: Text(
-                            "No of Properties",
+                            "No of bought Properties",
                             style: GoogleFonts.plusJakartaSans(
                                 fontSize: 14,
 

@@ -269,65 +269,7 @@ class _AuthPageState extends State<AuthPage> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 20),
-                      child: Container(
-                          width: width,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 20),
-                            child: Text(
-                              "Type",
-                              style: GoogleFonts.plusJakartaSans(
-                                  fontSize: 14,
-                                  color: AppColors.AuthTextColor,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: 5, left: 20, right: 20, bottom: 20),
-                      child: Container(
-                        height: 55,
-                        decoration: BoxDecoration(
-                          color: AppColors.textFieldFillColore,
 
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          // boxShadow: [
-                          //   if(AppConstants.lightVersion==0)
-                          //     BoxShadow(
-                          //       color: Colors.black12,
-                          //       blurRadius: 10,
-                          //       offset: const Offset(0, 1),
-                          //     ),
-                          // ],
-                        ),
-                        child: DropdownButton(
-                          style: GoogleFonts.plusJakartaSans(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black87),
-                          underline: SizedBox(),
-                          isExpanded: true,
-                          value: Contorller.SelectedAppartemnt,
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              //selectedTypeList.value=newValue!;
-                              Contorller.SelectedAppartemnt = newValue!;
-                            });
-                          },
-                          items: Contorller.typeAppartment.map((String items) {
-                            return DropdownMenuItem(
-                              value: items,
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 10),
-                                child: Text(items),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ),
                     Padding(
                       padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
                       child: GestureDetector(
@@ -359,13 +301,7 @@ class _AuthPageState extends State<AuthPage> {
                         ),
                       ),
                     ),
-                    Text(
-                      "or Login with",
-                      style: GoogleFonts.plusJakartaSans(
-                          fontSize: 16,
-                          color: AppColors.AuthTextColor,
-                          fontWeight: FontWeight.normal),
-                    ),
+
                     Padding(
                       padding: EdgeInsets.only(top: 20, bottom: 40),
                       child: Row(
@@ -386,25 +322,7 @@ class _AuthPageState extends State<AuthPage> {
                         ],
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "or ",
-                          style: GoogleFonts.plusJakartaSans(
-                              fontSize: 16,
-                              color: AppColors.AuthTextColor,
-                              fontWeight: FontWeight.normal),
-                        ),
-                        Text(
-                          "Login or continue as guest",
-                          style: GoogleFonts.plusJakartaSans(
-                              fontSize: 16,
-                              color: AppColors.AuthTextColor,
-                              fontWeight: FontWeight.w700),
-                        ),
-                      ],
-                    ),
+
                   ],
                 ),
               ),
@@ -780,25 +698,7 @@ class _AuthPageState extends State<AuthPage> {
                         ),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "or ",
-                          style: GoogleFonts.plusJakartaSans(
-                              fontSize: 16,
-                              color: AppColors.AuthTextColor,
-                              fontWeight: FontWeight.normal),
-                        ),
-                        Text(
-                          "Sign Up or continue as guest",
-                          style: GoogleFonts.plusJakartaSans(
-                              fontSize: 16,
-                              color: AppColors.AuthTextColor,
-                              fontWeight: FontWeight.w700),
-                        ),
-                      ],
-                    ),
+
                   ],
                 ),
               ),

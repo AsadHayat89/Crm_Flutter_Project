@@ -67,11 +67,11 @@ class _EmployeeInfoPageState extends State<DustomerDetail> {
               ),
               ListTile(
                 title: Text('Properties'),
-                subtitle: Text('\$${widget.empployee.noOfProperty}'),
+                subtitle: Text('PKR ${widget.empployee.noOfProperty}'),
               ),
               ListTile(
                 title: Text('Sold Properties'),
-                subtitle: Text('\$${widget.empployee.noOfProperty}'),
+                subtitle: Text('PKR ${widget.empployee.noOfProperty}'),
               ),
               ListTile(
                 title: Text('Address'),

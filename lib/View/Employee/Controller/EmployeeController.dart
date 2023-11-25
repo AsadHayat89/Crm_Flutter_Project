@@ -112,7 +112,8 @@ class EmployeeController extends GetxController {
         "address": "${EmployeeAddress.text}",
         "salary": "${EmployeeSalary.text}",
         "commission": "${EmployeeComission.text}",
-        "image": multipartFile
+        "image": multipartFile,
+        'designation':desination.text,
       };
 
       print("Image file data: " + ImageData.path.toString());
@@ -125,9 +126,11 @@ class EmployeeController extends GetxController {
             EmployeeAddress.text = "",
             Employeeemail.text = "",
             EmployeePhone.text = "",
+        desination.text="",
             EmailCity.text = "",
             ImageData = new File(""),
             EmployeeComission.text = "",
+        ImagePath.value="",
             if (value.email == null)
               {
                 print("data not enterd"),

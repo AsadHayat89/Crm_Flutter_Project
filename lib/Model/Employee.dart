@@ -8,6 +8,7 @@ class Employee {
   int? phone;
   String? city;
   String? address;
+  String? designation;
   int? salary;
   int? commission;
   int? iV;
@@ -23,6 +24,7 @@ class Employee {
         this.city,
         this.address,
         this.salary,
+        this.designation,
         this.commission,
         this.iV});
 
@@ -36,6 +38,7 @@ class Employee {
     phone = json['phone'];
     city = json['city'];
     address = json['address'];
+    designation=json['designation'];
     salary = json['salary'];
     commission = json['commission'];
     iV = json['__v'];

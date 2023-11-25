@@ -58,7 +58,7 @@ class _HomePageState extends State<HRHomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Welcome Admin!",
+                  "Welcome to Accounts",
                   style: GoogleFonts.plusJakartaSans(
                     fontWeight: FontWeight.w700,
                     fontSize: 22.0,
@@ -81,7 +81,6 @@ class _HomePageState extends State<HRHomePage> {
 
                 chartType: ChartType.ring,
                 ringStrokeWidth: 32,
-                centerText: "Earning Graph",
                 legendOptions: LegendOptions(
                   showLegendsInRow: false,
                   legendPosition: LegendPosition.right,

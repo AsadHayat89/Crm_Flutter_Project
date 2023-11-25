@@ -64,16 +64,20 @@ class _EmployeeInfoPageState extends State<EmployeeInfoPage> {
                 subtitle: Text(widget.empployee.phone!.toString()),
               ),
               ListTile(
+                title: Text('Designation'),
+                subtitle: Text(widget.empployee!.designation.toString()),
+              ),
+              ListTile(
                 title: Text('Email'),
                 subtitle: Text(widget.empployee.email!),
               ),
               ListTile(
                 title: Text('Salary'),
-                subtitle: Text('\$${widget.empployee.salary}'),
+                subtitle: Text('PKR ${widget.empployee.salary}'),
               ),
               ListTile(
                 title: Text('Commission'),
-                subtitle: Text('\$${widget.empployee.commission}'),
+                subtitle: Text('PKR ${widget.empployee.commission}'),
               ),
               ListTile(
                 title: Text('Address'),

@@ -662,34 +662,36 @@ class _ListYourPropertyScreenState extends State<ListYourPropertyScreen> {
                         //     ),
                         // ],
                       ),
-                      child: DropdownButton(
-                        style: GoogleFonts.plusJakartaSans(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black87),
-                        underline: SizedBox(),
-                        isExpanded: true,
-                        value: Controller.initialEmployeeSlection,
-                        onChanged: (String? newValue) {
-                          for(int i=0;i<Controller.employeessList.length;i++){
-                              if(Controller.employeessList[i].cnic.toString()==newValue){
-                                Controller.PropertyEmployeeName.text=Controller.employeessList[i].name!;
-                                Controller.empoloyeesPercentage=Controller.employeessList[i].commission!;
-                                print("data get: ");
+                      child: Obx(
+                        ()=> DropdownButton(
+                          style: GoogleFonts.plusJakartaSans(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black87),
+                          underline: SizedBox(),
+                          isExpanded: true,
+                          value: Controller.initialEmployeeSlection.value,
+                          onChanged: (String? newValue) {
+                            for(int i=0;i<Controller.employeessList.length;i++){
+                                if(Controller.employeessList[i].cnic.toString()==newValue){
+                                  Controller.PropertyEmployeeName.text=Controller.employeessList[i].name!;
+                                  Controller.empoloyeesPercentage=Controller.employeessList[i].commission!;
+                                  print("data get: ");
+                                }
                               }
-                            }
-                            Controller.initialEmployeeSlection = newValue!;
+                              Controller.initialEmployeeSlection.value = newValue!;
 
-                        },
-                        items: Controller.EmployeesCnic.map((String items) {
-                          return DropdownMenuItem(
-                            value: items,
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 10),
-                              child: Text(items),
-                            ),
-                          );
-                        }).toList(),
+                          },
+                          items: Controller.EmployeesCnic.map((String items) {
+                            return DropdownMenuItem(
+                              value: items,
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 10),
+                                child: Text(items),
+                              ),
+                            );
+                          }).toList(),
+                        ),
                       ),
                     ),
                   ),
@@ -795,33 +797,35 @@ class _ListYourPropertyScreenState extends State<ListYourPropertyScreen> {
                         //     ),
                         // ],
                       ),
-                      child: DropdownButton(
-                        style: GoogleFonts.plusJakartaSans(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black87),
-                        underline: SizedBox(),
-                        isExpanded: true,
-                        value: Controller.initialCustomerSlection,
-                        onChanged: (String? newValue) {
-                          for(int i=0;i<Controller.customersList.length;i++){
-                              if(Controller.customersList[i].cnic==newValue){
-                                Controller.PropertyCustomerName.text=Controller.customersList[i].name!;
+                      child: Obx(
+                        ()=> DropdownButton(
+                          style: GoogleFonts.plusJakartaSans(
+                              fontSize: Controller.fontSize.value,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black87),
+                          underline: SizedBox(),
+                          isExpanded: true,
+                          value: Controller.initialCustomerSlection.value,
+                          onChanged: (String? newValue) {
+                            for(int i=0;i<Controller.customersList.length;i++){
+                                if(Controller.customersList[i].cnic==newValue){
+                                  Controller.PropertyCustomerName.text=Controller.customersList[i].name!;
+                                }
                               }
-                            }
 
-                            Controller.initialCustomerSlection = newValue!;
+                              Controller.initialCustomerSlection.value = newValue!;
 
-                        },
-                        items: Controller.CutomersCnic.map((String items) {
-                          return DropdownMenuItem(
-                            value: items,
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 10),
-                              child: Text(items),
-                            ),
-                          );
-                        }).toList(),
+                          },
+                          items: Controller.CutomersCnic.map((String items) {
+                            return DropdownMenuItem(
+                              value: items,
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 10),
+                                child: Text(items),
+                              ),
+                            );
+                          }).toList(),
+                        ),
                       ),
                     ),
                   ),

@@ -90,8 +90,20 @@ class _dealDetailState extends State<dealDetailOption> {
                 subtitle: Text(widget.dealData.customerName!),
               ),
               ListTile(
+                title: Text('Employee Name'),
+                subtitle: Text(widget.dealData.employeeName!),
+              ),
+              ListTile(
+                title: Text('Employee Commission Price'),
+                subtitle: Text(widget.dealData.employeeProfit!),
+              ),
+              ListTile(
                 title: Text('Sold Price'),
-                subtitle: Text('\$${widget.dealData.soldPrice.toString()}'),
+                subtitle: Text('PKR ${widget.dealData.soldPrice.toString()}'),
+              ),
+              ListTile(
+                title: Text('Actual Price'),
+                subtitle: Text('PKR ${widget.dealData.actualPrice.toString()}'),
               ),
               ListTile(
                 title: Text('Description'),

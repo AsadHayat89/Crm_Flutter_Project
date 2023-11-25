@@ -7,6 +7,7 @@ import 'package:crm_project/View/Employee/EmployeeDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 import '../../Model/Employee Details.dart';
 class DealList extends StatelessWidget {
@@ -143,7 +144,7 @@ class DealList extends StatelessWidget {
                                     ,
                                     children: [
                                       Text(
-                                        "${Controller.DealList[index].date}",
+                                        "${DateFormat('yyyy-MM-dd').format(DateTime.parse(Controller.DealList[index].date!))}",
                                         style: GoogleFonts.plusJakartaSans(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 14.0,

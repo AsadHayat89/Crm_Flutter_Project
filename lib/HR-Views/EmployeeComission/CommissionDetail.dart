@@ -6,6 +6,7 @@ import 'package:crm_project/View/Deals/dealDetailScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class CommissionDetail extends StatefulWidget {
 
@@ -55,113 +56,123 @@ class _CommissionDetailState extends State<CommissionDetail> {
                 ? Expanded(
                     child: Container(
                       width: width,
-                      child: ListView.builder(
-                          itemCount: Controller.EmployeessDeals.length,
-                          padding: EdgeInsets.zero,
-                          itemBuilder: (BuildContext context, int index) {
-                            return GestureDetector(
-                              onTap: (){
-                                print("data here");
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => dealDetailOption(dealData: Controller.EmployeessDeals[index],)));
+                      child: Padding(
+                        padding:  EdgeInsets.symmetric(horizontal: 16),
+                        child: ListView.builder(
+                            itemCount: Controller.EmployeessDeals.length,
+                            padding: EdgeInsets.zero,
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                onTap: (){
+                                  print("data here");
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => dealDetailOption(dealData: Controller.EmployeessDeals[index],)));
 
-                              },
-                              child: Container(
-                                width: width,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 2,
-                                      blurRadius: 5,
-                                      offset:
-                                      Offset(0, 3), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 10),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Container(
-                                                width: 40,
-                                                height: 40,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  image: DecorationImage(
-                                                    fit: BoxFit.cover,
-                                                    image:
-                                                    NetworkImage(ApiConstans.imageDealBaseUrl+Controller.EmployeessDeals[index].image!),
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "${Controller.EmployeessDeals[index].property}",
-                                                    style: GoogleFonts.plusJakartaSans(
-                                                      fontWeight: FontWeight.w700,
-                                                      fontSize: 18.0,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    "Propert :${Controller.EmployeessDeals[index].property}",
-                                                    style: GoogleFonts.plusJakartaSans(
-                                                      fontWeight: FontWeight.normal,
-                                                      fontSize: 12.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                "Pkr ${Controller.EmployeessDeals[index].soldPrice}",
-                                                style: GoogleFonts.plusJakartaSans(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 18.0,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                },
+                                child: Container(
+                                  width: width,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        spreadRadius: 2,
+                                        blurRadius: 5,
+                                        offset:
+                                        Offset(0, 3), // changes position of shadow
                                       ),
-                                      SizedBox(height: 10),
-                                      Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.end
-                                        ,
-                                        children: [
-                                          Text(
-                                            "${Controller.EmployeessDeals[index].date}",
-                                            style: GoogleFonts.plusJakartaSans(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 14.0,
-                                            ),
-                                          ),
-                                        ],
-                                      )
                                     ],
                                   ),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  width: 40,
+                                                  height: 40,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    image: DecorationImage(
+                                                      fit: BoxFit.cover,
+                                                      image:
+                                                      NetworkImage(ApiConstans.imageDealBaseUrl+Controller.EmployeessDeals[index].image!),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "${Controller.EmployeessDeals[index].property}",
+                                                      style: GoogleFonts.plusJakartaSans(
+                                                        fontWeight: FontWeight.w700,
+                                                        fontSize: 18.0,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      "Propert :${Controller.EmployeessDeals[index].property}",
+                                                      style: GoogleFonts.plusJakartaSans(
+                                                        fontWeight: FontWeight.normal,
+                                                        fontSize: 12.0,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  "Pkr ${Controller.EmployeessDeals[index].soldPrice}",
+                                                  style: GoogleFonts.plusJakartaSans(
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 18.0,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 10),
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween
+                                          ,
+                                          children: [
+                                            Text(
+                                              "Commission ${Controller.EmployeessDeals[index].employeeProfit}",
+                                              style: GoogleFonts.plusJakartaSans(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14.0,
+                                              ),
+                                            ),
+                                            Text(
+                                              "${DateFormat('yyyy-MM-dd').format(DateTime.parse(Controller.EmployeessDeals[index].date!))}",
+                                              style: GoogleFonts.plusJakartaSans(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14.0,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            );
-                          }),
+                              );
+                            }),
+                      ),
                     ),
                   )
                 : Text('No Deals Yet'

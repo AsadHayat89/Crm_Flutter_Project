@@ -80,7 +80,6 @@ class _HomePageState extends State<AdminHomePage> {
 
                 chartType: ChartType.ring,
                 ringStrokeWidth: 32,
-                centerText: "Earning Graph",
                 legendOptions: LegendOptions(
                   showLegendsInRow: false,
                   legendPosition: LegendPosition.right,
@@ -226,40 +225,40 @@ class _HomePageState extends State<AdminHomePage> {
                                     children: [
                                       Row(
                                         children: [
-                                          GestureDetector(
-                                            onTap:(){
-                                              print("on Delet");
-
-                                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => UpdateDeal(
-                                                Deal: Controller.DealList[index],
-                                              )));
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(10),
-                                                color: Colors.green,
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.black.withOpacity(0.2),
-                                                    spreadRadius: 2,
-                                                    blurRadius: 5,
-                                                    offset:
-                                                    Offset(0, 3), // changes position of shadow
-                                                  ),
-                                                ],
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
-                                                child: Text(
-                                                  "Update",
-                                                  style: GoogleFonts.plusJakartaSans(
-                                                      fontWeight: FontWeight.w700,
-                                                      fontSize: 16.0,
-                                                      color: Colors.white
-                                                  ),),
-                                              ),
-                                            ),
-                                          ),
+                                          // GestureDetector(
+                                          //   onTap:(){
+                                          //     print("on Delet");
+                                          //
+                                          //     Navigator.of(context).push(MaterialPageRoute(builder: (context) => UpdateDeal(
+                                          //       Deal: Controller.DealList[index],
+                                          //     )));
+                                          //   },
+                                          //   child: Container(
+                                          //     decoration: BoxDecoration(
+                                          //       borderRadius: BorderRadius.circular(10),
+                                          //       color: Colors.green,
+                                          //       boxShadow: [
+                                          //         BoxShadow(
+                                          //           color: Colors.black.withOpacity(0.2),
+                                          //           spreadRadius: 2,
+                                          //           blurRadius: 5,
+                                          //           offset:
+                                          //           Offset(0, 3), // changes position of shadow
+                                          //         ),
+                                          //       ],
+                                          //     ),
+                                          //     child: Padding(
+                                          //       padding: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
+                                          //       child: Text(
+                                          //         "Update",
+                                          //         style: GoogleFonts.plusJakartaSans(
+                                          //             fontWeight: FontWeight.w700,
+                                          //             fontSize: 16.0,
+                                          //             color: Colors.white
+                                          //         ),),
+                                          //     ),
+                                          //   ),
+                                          // ),
                                           SizedBox(width: 10,),
                                           GestureDetector(
                                             onTap:(){

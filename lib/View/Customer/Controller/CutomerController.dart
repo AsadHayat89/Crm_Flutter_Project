@@ -97,6 +97,7 @@ class CutomerController extends GetxController {
             CutomerAddress.text = "",
             CutomerSoldProperty.text = "",
             ImageData = new File(""),
+        ImagePath.value="",
             if (value.email == null)
               {
                 print("data not enterd"),
